@@ -1,30 +1,59 @@
 import React from "react";
 import "./Board.css";
-import { getLetters } from './lib/alphabet';
+import { getLetters } from "./lib/alphabet";
 
 export class Board extends React.Component {
   constructor() {
     super();
     // Change size here
     this.size = 4;
-    this.state = { board: this.generateBoard() };
+    // Change totalTime here
+    this.totalTime = 120;
+    this.state = {
+      gamesPlayed: 0,
+      board: this.generateBoard(),
+      timer: null,
+      time: this.totalTime
+    };
   }
 
-  generateEmptyBoard() {
-    return Array(this.size)
-      .fill(0)
-      .map(() => Array(this.size).fill(0));
+  componentDidMount() {
+    const timer = setInterval(() => this.tick(), 1000);
+    this.setState({ timer });
+  }
+
+  componentWillUnmount() {
+    this.clearInterval(this.state.timer);
+  }
+
+  tick() {
+    if (this.state.time == 0) {
+      this.setState({
+        gamesPlayed: this.state.gamesPlayed + 1,
+        board: this.generateBoard(),
+        time: this.totalTime
+      });
+    }
+    this.setState({
+      time: this.state.time - 1
+    });
   }
 
   generateBoard() {
-    let board = this.generateEmptyBoard();
     const letters = getLetters(this.size);
-    console.log(letters);
-    return board;
+    let index = 0;
+    return Array(this.size)
+      .fill(0)
+      .map(() => {
+        const arr = Array.from(letters.slice(index, index + this.size));
+        index += this.size;
+        return arr;
+      });
   }
 
   renderBoard() {
     let boardString = "";
+    console.log(this.state.board);
     this.state.board.forEach(row => {
       boardString += "<br/>";
       row.forEach(elem => (boardString += elem));
@@ -34,10 +63,13 @@ export class Board extends React.Component {
 
   render() {
     return (
-      <div
-        className="Board"
-        dangerouslySetInnerHTML={{ __html: this.renderBoard() }}
-      />
+      <div key={this.state.gamesPlayed}>
+        <div className="Timer">{this.state.time} </div>
+        <div
+          className="Board"
+          dangerouslySetInnerHTML={{ __html: this.renderBoard() }}
+        />
+      </div>
     );
   }
 }
