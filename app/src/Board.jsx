@@ -89,7 +89,6 @@ export class Board extends React.Component {
     const letters = this.state.board.map((col, colIndex) => {
       return (
         <div className="Board__LetterColumn" key={`${colIndex}`}>
-          <br />
           {col.map((elem, rowIndex) => {
             const selected = _find(this.state.selected, {
               col: colIndex,
@@ -125,10 +124,10 @@ export class Board extends React.Component {
             totalTime={120}
           />
           {this.renderBoard()}
-          <form onSubmit={this.submitWord}>
-            <input value={this.state.selectedLetters.join("")} />
-            <input type="submit" />
-            <input type="reset" onClick={this.resetSelected} />
+          <form className="Board__ButtonContainer" onSubmit={this.submitWord}>
+            <input className="Board__SelectedLetters" value={this.state.selectedLetters.join("")} />
+            <button className="Board__Button" type="submit">Submit</button>
+            <button className="Board__Button" type="reset" onClick={this.resetSelected}>Reset</button>
           </form>
         </div>
         <FoundWordList

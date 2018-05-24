@@ -3,6 +3,7 @@
   text-align: left;
 }
 
-.FoundWordList__Score {
+.FoundWordList__Title {
+  font-weight: bold;
   margin-bottom: 10px;
 }
