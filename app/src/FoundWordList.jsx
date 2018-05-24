@@ -5,12 +5,24 @@ export class FoundWordList extends React.Component {
   render() {
     return (
       <div className="FoundWordList">
-        {this.props.foundWords.map(elem => <div key={elem}> {elem} </div>)}
+        <div className="FoundWordList__Score">
+          {" "}
+          Score: {this.props.totalScore}{" "}
+        </div>
+        Found words
+        {this.props.foundWords.map(elem => (
+          <div key={elem}>
+            {" "}
+            {elem} - {this.props.wordScores[elem]}{" "}
+          </div>
+        ))}
       </div>
     );
   }
 }
 
 FoundWordList.defaultProps = {
-  foundWords: [{ word: "test", value: "4" }]
+  foundWords: [],
+  wordScores: {},
+  totalScore: 0
 };

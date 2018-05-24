@@ -10,7 +10,7 @@ class App extends React.Component {
           <h1 className="App__Title">Welcome to Boggle</h1>
         </header>
         <div className="App__Content">
-          <Board />
+          <Board size={4} />
         </div>
       </div>
     );

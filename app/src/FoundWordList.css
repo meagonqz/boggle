@@ -1,3 +1,8 @@
 .FoundWordList {
   margin: 20px;
+  text-align: left;
+}
+
+.FoundWordList__Score {
+  margin-bottom: 10px;
 }
