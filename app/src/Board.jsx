@@ -91,13 +91,18 @@ export class Board extends React.Component {
         <div className="Board__LetterColumn" key={`${colIndex}`}>
           <br />
           {col.map((elem, rowIndex) => {
+            const selected = _find(this.state.selected, {
+              col: colIndex,
+              row: rowIndex
+            });
             const disable =
               _find(this.state.disabled, { col: colIndex, row: rowIndex }) ||
-              _find(this.state.selected, { col: colIndex, row: rowIndex });
+              selected;
             const addLetter = this.addLetter.bind(this, colIndex, rowIndex);
             return (
               <Letter
                 disabled={disable}
+                selected={selected}
                 key={`${colIndex}-${rowIndex}-${elem}`}
                 addLetter={addLetter}
                 elem={elem}
@@ -122,7 +127,7 @@ export class Board extends React.Component {
           {this.renderBoard()}
           <form onSubmit={this.submitWord}>
             <input value={this.state.selectedLetters.join("")} />
-            <button type="submit">Submit</button>
+            <input type="submit" />
             <input type="reset" onClick={this.resetSelected} />
           </form>
         </div>
