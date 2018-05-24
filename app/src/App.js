@@ -1,6 +1,5 @@
 import React from "react";
 import { Board } from "./Board";
-import { FoundWordList } from "./FoundWordList";
 import "./App.css";
 
 class App extends React.Component {
@@ -12,7 +11,6 @@ class App extends React.Component {
         </header>
         <div className="App__Content">
           <Board />
-          <FoundWordList />
         </div>
       </div>
     );

@@ -44,7 +44,6 @@ const generateLetter = () => {
   const vowel = generateRandomVowel();
   const con = generateRandomConsonant();
   const letter = bool ? vowel : con;
-  if (!letter) debugger;
   return letter;
 };
 

@@ -1,42 +1,33 @@
 import React from "react";
-import "./Board.css";
+import { find as _find } from "lodash";
 import { getLetters } from "./lib/alphabet";
+import { findTrieWord } from "./lib/dictionary";
+import { constructIndices } from "./lib/board";
+import { Timer } from "./Timer";
+import { Letter } from "./Letter";
+import { FoundWordList } from './FoundWordList';
+import "./Board.css";
 
 export class Board extends React.Component {
   constructor() {
     super();
     // Change size here
     this.size = 4;
-    // Change totalTime here
-    this.totalTime = 120;
     this.state = {
-      gamesPlayed: 0,
       board: this.generateBoard(),
-      timer: null,
-      time: this.totalTime
+      selected: [],
+      selectedLetters: [],
+      disabled: [],
+      foundWords: []
     };
   }
 
-  componentDidMount() {
-    const timer = setInterval(() => this.tick(), 1000);
-    this.setState({ timer });
+  refreshBoard = () => {
+    this.setState({ board: this.generateBoard(), selectedLetters: [], selected: [], disabled: [], foundWords: [] })
   }
 
-  componentWillUnmount() {
-    this.clearInterval(this.state.timer);
-  }
-
-  tick() {
-    if (this.state.time == 0) {
-      this.setState({
-        gamesPlayed: this.state.gamesPlayed + 1,
-        board: this.generateBoard(),
-        time: this.totalTime
-      });
-    }
-    this.setState({
-      time: this.state.time - 1
-    });
+  resetSelected = () => {
+    this.setState({ selected: [], selectedLetters: [], disabled: [] })
   }
 
   generateBoard() {
@@ -52,23 +43,63 @@ export class Board extends React.Component {
   }
 
   renderBoard() {
-    let boardString = "";
-    console.log(this.state.board);
-    this.state.board.forEach(row => {
-      boardString += "<br/>";
-      row.forEach(elem => (boardString += elem));
+    const letters = this.state.board.map((col, colIndex) => {
+      return (
+        <div className="Board__LetterColumn" key={`${colIndex}`}>
+          <br />
+          { /** TODO: focus selected letters and show in input box */}
+          { col.map((elem, rowIndex) => {
+            const disable = _find(this.state.disabled, { col: colIndex, row: rowIndex }) || _find(this.state.selected, { col: colIndex, row: rowIndex });
+            // TODO: or it's already selected
+            const addLetter = this.addLetter.bind(this, colIndex, rowIndex);
+            return (<Letter
+              disabled={disable}
+              key={`${colIndex}-${rowIndex}-${elem}`}
+              addLetter={addLetter}
+              elem={elem}
+            />
+          )})
+          }
+        </div>
+      );
     });
-    return boardString;
+    return <div className="Board">{letters}</div>;
+  }
+
+  addLetter = (colIndex, rowIndex) => {
+    const { disabled } = constructIndices(colIndex, rowIndex, this.size);
+    this.setState({ disabled,
+      selected: this.state.selected.concat([{ col: colIndex, row: rowIndex }]),
+      selectedLetters: this.state.selectedLetters.concat([
+        this.state.board[colIndex][rowIndex]
+      ])
+    });
+  }
+
+  submitWord = (e) => {
+    e.preventDefault();
+    const word = this.state.selectedLetters.join("");
+    if (findTrieWord(word)) {
+      this.setState({ foundWords: this.state.foundWords.concat([word]) })
+     } else {
+       window.alert(`${word} is not a word! Try again`);
+       this.resetSelected();
+     }
   }
 
   render() {
     return (
-      <div key={this.state.gamesPlayed}>
-        <div className="Timer">{this.state.time} </div>
-        <div
-          className="Board"
-          dangerouslySetInnerHTML={{ __html: this.renderBoard() }}
-        />
+      <div style={{ display: 'flex' }}>
+        <div>
+          <Timer refreshBoard={this.refreshBoard} />
+          {this.renderBoard()}
+          <form onSubmit={this.submitWord}>
+            <input value={this.state.selectedLetters.join("") }/>
+            <button type="submit">Submit</button>
+            <input type="reset" onClick={this.resetSelected} />
+          </form>
+        </div>
+        <FoundWordList foundWords={this.state.foundWords} />
       </div>
     );
   }
