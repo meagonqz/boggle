@@ -77,8 +77,13 @@ export class Board extends React.Component {
   }
 
   submitWord = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevents page reload on form submission
     const word = this.state.selectedLetters.join("");
+    if (word.length <= 2) {
+      window.alert(`${word} is invalid, it must be at least 2 letters!`);
+      this.resetSelected();
+      return;
+    }
     if (findTrieWord(word)) {
       this.setState({ foundWords: this.state.foundWords.concat([word]) })
      } else {
