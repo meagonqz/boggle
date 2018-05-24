@@ -2,7 +2,9 @@
   "name": "app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://meagonqz.github.io/boggle",
   "dependencies": {
+    "gh-pages": "^1.1.0",
     "lodash": "^4.17.10",
     "prettier": "^1.12.1",
     "react": "^16.3.2",
@@ -10,6 +12,8 @@
     "react-scripts": "1.1.4"
   },
   "scripts": {
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build",
     "format": "./node_modules/.bin/prettier --write \"./**/*.js*\"",
     "start": "react-scripts start",
     "build": "react-scripts build",

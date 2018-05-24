@@ -7,7 +7,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App__Header">
-          <h1 className="App__Title">Welcome to Boggle</h1>
+          <h1 className="App__Title">Boggle</h1>
         </header>
         <div className="App__Content">
           <Board size={4} />
