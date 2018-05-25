@@ -5,7 +5,7 @@ export const FoundWordList = props => {
   return (
     <div className="FoundWordList">
       <div className="FoundWordList__Title">
-      Score: <span style={{ fontWeight: 'normal' }}> {props.totalScore} </span>
+      Score: <span style={{ fontWeight: 'normal' }}> {props.score} </span>
       </div>
       <div className="FoundWordList__Title">
       Found words
@@ -22,5 +22,5 @@ export const FoundWordList = props => {
 FoundWordList.defaultProps = {
   foundWords: [],
   wordScores: {},
-  totalScore: 0
+  score: 0
 };

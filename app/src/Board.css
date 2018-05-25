@@ -38,15 +38,12 @@
   color: #4903aa;
 }
 
-.Board_Button:blur {
-  background-color: #4903aa;
-  color: white;
-}
-
-.Board__SelectedLetters {
+.Board__Input {
   color: #4903aa;
   min-width: 100px;
   margin-left: 5px;
   margin-right: 5px;
   font-size: 16px;
+  border: 2px solid rgb(192,192,192);
+  border-radius: 6px;
 }

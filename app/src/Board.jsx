@@ -125,7 +125,7 @@ export class Board extends React.Component {
           />
           {this.renderBoard()}
           <form className="Board__ButtonContainer" onSubmit={this.submitWord}>
-            <input className="Board__SelectedLetters" value={this.state.selectedLetters.join("")} />
+            <input className="Board__Input" value={this.state.selectedLetters.join("")} />
             <button className="Board__Button" type="submit">Submit</button>
             <button className="Board__Button" type="reset" onClick={this.resetSelected}>Reset</button>
           </form>
@@ -133,7 +133,7 @@ export class Board extends React.Component {
         <FoundWordList
           foundWords={this.state.foundWords}
           wordScores={this.state.wordScores}
-          totalScore={this.state.score}
+          score={this.state.score}
         />
       </div>
     );
