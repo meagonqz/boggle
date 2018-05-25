@@ -1,9 +1,9 @@
 import React from "react";
 import { find as _find } from "lodash";
-import { Letter } from './Letter';
-import './stylesheets/Board.css';
+import { Letter } from "./Letter";
+import "./stylesheets/Board.css";
 
-export const Board = (props) => {
+export const Board = props => {
   const letters = props.board.map((col, colIndex) => {
     return (
       <div className="Board__LetterColumn" key={`${colIndex}`}>
@@ -13,8 +13,7 @@ export const Board = (props) => {
             row: rowIndex
           });
           const disable =
-            _find(props.disabled, { col: colIndex, row: rowIndex }) ||
-            selected;
+            _find(props.disabled, { col: colIndex, row: rowIndex }) || selected;
           const addLetter = props.addLetter.bind(this, colIndex, rowIndex);
           return (
             <Letter
@@ -37,4 +36,4 @@ Board.defaultProps = {
   selected: [],
   disabled: [],
   addLetter: () => {}
-}
+};
