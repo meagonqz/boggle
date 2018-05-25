@@ -1,5 +1,5 @@
 import React from "react";
-import { Board } from "./Board";
+import { Game } from "./Game";
 import "./App.css";
 
 class App extends React.Component {
@@ -10,7 +10,7 @@ class App extends React.Component {
           <h1 className="App__Title">Boggle</h1>
         </header>
         <div className="App__Content">
-          <Board size={4} />
+          <Game size={4} />
         </div>
       </div>
     );

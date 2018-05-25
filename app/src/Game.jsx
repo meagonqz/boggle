@@ -18,7 +18,7 @@ const emptyValues = {
   score: 0
 };
 
-export class Board extends React.Component {
+export class Game extends React.Component {
   constructor(props) {
     super(props);
     this.size = props.size;
