@@ -1,5 +1,5 @@
 import React from "react";
-import "./FoundWordList.css";
+import "./stylesheets/FoundWordList.css";
 
 export const FoundWordList = props => {
   return (

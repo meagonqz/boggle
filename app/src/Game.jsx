@@ -1,13 +1,12 @@
 import React from "react";
-import { find as _find } from "lodash";
 import { getLetters } from "./lib/alphabet";
 import { findTrieWord } from "./lib/dictionary";
 import { constructIndices } from "./lib/board";
 import { getScore } from "./lib/boggle";
-import { Timer } from "./Timer";
-import { Letter } from "./Letter";
-import { FoundWordList } from "./FoundWordList";
-import "./Board.css";
+import { Timer } from "./components/Timer";
+import { Letter } from "./components/Letter";
+import { FoundWordList } from "./components/FoundWordList";
+import { Board } from './components/Board.jsx';
 
 const emptyValues = {
   selected: [],
@@ -85,34 +84,34 @@ export class Game extends React.Component {
     }
   };
 
-  renderBoard() {
-    const letters = this.state.board.map((col, colIndex) => {
-      return (
-        <div className="Board__LetterColumn" key={`${colIndex}`}>
-          {col.map((elem, rowIndex) => {
-            const selected = _find(this.state.selected, {
-              col: colIndex,
-              row: rowIndex
-            });
-            const disable =
-              _find(this.state.disabled, { col: colIndex, row: rowIndex }) ||
-              selected;
-            const addLetter = this.addLetter.bind(this, colIndex, rowIndex);
-            return (
-              <Letter
-                disabled={disable}
-                selected={selected}
-                key={`${colIndex}-${rowIndex}-${elem}`}
-                addLetter={addLetter}
-                elem={elem}
-              />
-            );
-          })}
-        </div>
-      );
-    });
-    return <div className="Board">{letters}</div>;
-  }
+  // renderBoard() {
+  //   const letters = this.state.board.map((col, colIndex) => {
+  //     return (
+  //       <div className="Board__LetterColumn" key={`${colIndex}`}>
+  //         {col.map((elem, rowIndex) => {
+  //           const selected = _find(this.state.selected, {
+  //             col: colIndex,
+  //             row: rowIndex
+  //           });
+  //           const disable =
+  //             _find(this.state.disabled, { col: colIndex, row: rowIndex }) ||
+  //             selected;
+  //           const addLetter = this.addLetter.bind(this, colIndex, rowIndex);
+  //           return (
+  //             <Letter
+  //               disabled={disable}
+  //               selected={selected}
+  //               key={`${colIndex}-${rowIndex}-${elem}`}
+  //               addLetter={addLetter}
+  //               elem={elem}
+  //             />
+  //           );
+  //         })}
+  //       </div>
+  //     );
+  //   });
+  //   return <div className="Board">{letters}</div>;
+  // }
 
   render() {
     return (
@@ -123,7 +122,7 @@ export class Game extends React.Component {
             score={this.state.score}
             totalTime={120}
           />
-          {this.renderBoard()}
+          <Board board={this.state.board} selected={this.state.selected} disabled={this.state.disabled} addLetter={this.addLetter} />
           <form className="Board__ButtonContainer" onSubmit={this.submitWord}>
             <input className="Board__Input" value={this.state.selectedLetters.join("")} />
             <button className="Board__Button" type="submit">Submit</button>

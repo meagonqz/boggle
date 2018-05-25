@@ -1,5 +1,5 @@
 import React from "react";
-import "./Letter.css";
+import "./stylesheets/Letter.css";
 
 export const Letter = props => {
   const { elem, disabled, addLetter, selected } = props;
