@@ -6,7 +6,6 @@
   "dependencies": {
     "gh-pages": "^1.1.0",
     "lodash": "^4.17.10",
-    "prettier": "^1.12.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-scripts": "1.1.4"
@@ -15,9 +14,15 @@
     "predeploy": "yarn run build",
     "deploy": "gh-pages -d build",
     "format": "./node_modules/.bin/prettier --write \"./**/*.js*\"",
+    "stylelint": "./node_modules/.bin/stylelint --fix src/components/stylesheets/*.css",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "prettier": "^1.12.1",
+    "stylelint": "^9.3.0",
+    "stylelint-config-standard": "^18.2.0"
   }
 }
