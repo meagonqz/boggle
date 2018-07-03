@@ -17,15 +17,15 @@
   padding: 6px 12px;
   margin-right: 5px;
 
-  font-family : inherit;
-  font-size   : 1em;
-  cursor      : pointer;
+  font-family: inherit;
+  font-size: 1em;
+  cursor: pointer;
   outline: none;
 }
 
 .Board__Button::-moz-focus-inner{
-    padding : 0;
-    border  : 0;
+    padding: 0;
+    border: 0;
 }
 
 .Board__Button:active {
