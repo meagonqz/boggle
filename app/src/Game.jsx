@@ -86,7 +86,7 @@ export class Game extends React.Component {
 
   render() {
     return (
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
         <div>
           <Timer
             refreshBoard={this.refreshBoard}
