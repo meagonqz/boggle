@@ -25,15 +25,15 @@ export class Timer extends React.Component {
   tick() {
     if (this.state.time === 0) {
       window.alert(`Your final score was ${this.props.score}`);
-      this.setState({
-        gamesPlayed: this.state.gamesPlayed + 1,
-        board: this.props.refreshBoard(),
+      this.setState((prevState, props) => ({
+        gamesPlayed: prevState.gamesPlayed + 1,
+        board: props.refreshBoard(),
         time: this.totalTime
-      });
+      }));
     }
-    this.setState({
-      time: this.state.time - 1
-    });
+    this.setState(prevState => ({
+      time: prevState.time - 1 })
+    );
   }
 
   render() {

@@ -4,7 +4,6 @@ import { findTrieWord } from "./lib/dictionary";
 import { constructIndices } from "./lib/board";
 import { getScore } from "./lib/boggle";
 import { Timer } from "./components/Timer";
-import { Letter } from "./components/Letter";
 import { FoundWordList } from "./components/FoundWordList";
 import { Board } from "./components/Board.jsx";
 
@@ -52,13 +51,13 @@ export class Game extends React.Component {
 
   addLetter = (colIndex, rowIndex) => {
     const { disabled } = constructIndices(colIndex, rowIndex, this.size);
-    this.setState({
+    this.setState(prevState => ({
       disabled,
-      selected: this.state.selected.concat([{ col: colIndex, row: rowIndex }]),
-      selectedLetters: this.state.selectedLetters.concat([
-        this.state.board[colIndex][rowIndex]
-      ])
-    });
+      selected: prevState.selected.concat([{ col: colIndex, row: rowIndex }]),
+      selectedLetters: prevState.selectedLetters.concat([
+        prevState.board[colIndex][rowIndex]
+      ])})
+    );
   };
 
   submitWord = e => {
@@ -73,10 +72,11 @@ export class Game extends React.Component {
     } else if (findTrieWord(word)) {
       this.setState({ foundWords: this.state.foundWords.concat([word]) });
       const score = getScore(word);
-      this.setState({
-        wordScores: { ...this.state.wordScores, [`${word}`]: score }
-      });
-      this.setState({ score: this.state.score + score });
+      this.setState(prevState => ({
+        wordScores: { ...prevState.wordScores, [`${word}`]: score }
+        })
+      );
+      this.setState(prevState => ({ score: prevState.score + score }));
       this.resetSelected();
     } else {
       window.alert(`${word} is not a word! Try again`);
