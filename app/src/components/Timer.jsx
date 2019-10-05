@@ -32,8 +32,8 @@ export class Timer extends React.Component {
       }));
     }
     this.setState(prevState => ({
-      time: prevState.time - 1 })
-    );
+      time: prevState.time - 1
+    }));
   }
 
   render() {

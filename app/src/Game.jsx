@@ -56,8 +56,8 @@ export class Game extends React.Component {
       selected: prevState.selected.concat([{ col: colIndex, row: rowIndex }]),
       selectedLetters: prevState.selectedLetters.concat([
         prevState.board[colIndex][rowIndex]
-      ])})
-    );
+      ])
+    }));
   };
 
   submitWord = e => {
@@ -74,8 +74,7 @@ export class Game extends React.Component {
       const score = getScore(word);
       this.setState(prevState => ({
         wordScores: { ...prevState.wordScores, [`${word}`]: score }
-        })
-      );
+      }));
       this.setState(prevState => ({ score: prevState.score + score }));
       this.resetSelected();
     } else {
@@ -86,7 +85,9 @@ export class Game extends React.Component {
 
   render() {
     return (
-      <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
+      <div
+        style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
+      >
         <div>
           <Timer
             refreshBoard={this.refreshBoard}
@@ -101,6 +102,8 @@ export class Game extends React.Component {
           />
           <form className="Board__ButtonContainer" onSubmit={this.submitWord}>
             <input
+              autoFocus
+              ref={input => input && input.focus()}
               className="Board__Input"
               value={this.state.selectedLetters.join("")}
             />
