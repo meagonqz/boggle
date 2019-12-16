@@ -19,13 +19,14 @@ secure cookie in production so your token is safe.
 # Local development
 This app was bootstrapped using [Create React App](https://github.com/facebook/create-react-app)
 
+To run the server, **`cd app`** and:
+
 Install dependencies:
 ```
 yarn install
 ```
 
-To run the server, **cd into app** and:
-
+Start the server
 ```
 npm start
 ```
