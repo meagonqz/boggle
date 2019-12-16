@@ -92,6 +92,7 @@ export class Game extends React.Component {
     this.props.client
       .mutate({ mutation: SET_SCORE(this.state.score) })
       .then(() => {
+        this.props.updateHighScore(this.state.score);
         resetGame();
       })
       // Allow users to keep playing if backend is down or not logged in
