@@ -3,9 +3,10 @@ import { getLetters } from "./lib/alphabet";
 import { findTrieWord } from "./lib/dictionary";
 import { constructIndices } from "./lib/board";
 import { getScore } from "./lib/boggle";
-import { Timer } from "./components/Timer";
+import Timer from "./components/Timer";
 import { FoundWordList } from "./components/FoundWordList";
 import { Board } from "./components/Board.jsx";
+import { SET_SCORE } from "./helpers/apollo";
 
 const emptyValues = {
   selected: [],
@@ -83,17 +84,30 @@ export class Game extends React.Component {
     }
   };
 
+  gameOver = () => {
+    const resetGame = () => {
+      window.alert(`Your final score was ${this.state.score}`);
+      this.refreshBoard();
+    };
+    this.props.client
+      .mutate({ mutation: SET_SCORE(this.state.score) })
+      .then(() => {
+        this.props.updateHighScore(this.state.score);
+        resetGame();
+      })
+      // Allow users to keep playing if backend is down or not logged in
+      .catch(() => {
+        resetGame();
+      });
+  };
+
   render() {
     return (
       <div
         style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
       >
         <div>
-          <Timer
-            refreshBoard={this.refreshBoard}
-            score={this.state.score}
-            totalTime={120}
-          />
+          <Timer totalTime={this.props.time} timesUp={this.gameOver} />
           <Board
             board={this.state.board}
             selected={this.state.selected}
