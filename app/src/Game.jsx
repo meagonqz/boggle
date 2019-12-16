@@ -93,6 +93,7 @@ export class Game extends React.Component {
             refreshBoard={this.refreshBoard}
             score={this.state.score}
             totalTime={120}
+            isLoggedIn={this.props.isLoggedIn}
           />
           <Board
             board={this.state.board}
