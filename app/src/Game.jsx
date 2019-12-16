@@ -116,8 +116,6 @@ export class Game extends React.Component {
           />
           <form className="Board__ButtonContainer" onSubmit={this.submitWord}>
             <input
-              autoFocus
-              ref={input => input && input.focus()}
               className="Board__Input"
               value={this.state.selectedLetters.join("")}
             />
