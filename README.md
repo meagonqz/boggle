@@ -35,3 +35,6 @@ To kick off a deployment:
 ```
 npm deploy
 ```
+
+To set up with a local backend, edit
+[apollo.js](https://github.com/meagonqz/boggle/blob/master/app/src/helpers/apollo.js) to point to your backend, i.e. http://localhost:4000
