@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Game } from "./Game";
 import ApolloClient from "apollo-boost";
+import { ApolloConsumer } from "@apollo/react-common";
 import { ApolloProvider, useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import "./App.css";
@@ -32,7 +33,16 @@ const App = () => {
           <UserData setLoggedIn={setLoggedIn} />
         </header>
         <div className="App__Content">
-          <Game size={4} isLoggedin={isLoggedIn} />
+          <ApolloConsumer>
+            {client => (
+              <Game
+                size={4}
+                time={12}
+                isLoggedin={isLoggedIn}
+                client={client}
+              />
+            )}
+          </ApolloConsumer>
         </div>
       </div>
     </ApolloProvider>

@@ -1,9 +1,10 @@
 import React from "react";
+import { gql } from "apollo-boost";
 import { getLetters } from "./lib/alphabet";
 import { findTrieWord } from "./lib/dictionary";
 import { constructIndices } from "./lib/board";
 import { getScore } from "./lib/boggle";
-import { Timer } from "./components/Timer";
+import Timer from "./components/Timer";
 import { FoundWordList } from "./components/FoundWordList";
 import { Board } from "./components/Board.jsx";
 
@@ -83,18 +84,27 @@ export class Game extends React.Component {
     }
   };
 
+  gameOver = () => {
+    const SET_SCORE = gql`
+      mutation {
+        createScore(score: ${this.state.score}) {
+          score
+        }
+      }
+    `;
+    this.props.client.mutate({ mutation: SET_SCORE }).then(() => {
+      window.alert(`Your final score was ${this.state.score}`);
+      this.refreshBoard();
+    });
+  };
+
   render() {
     return (
       <div
         style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
       >
         <div>
-          <Timer
-            refreshBoard={this.refreshBoard}
-            score={this.state.score}
-            totalTime={120}
-            isLoggedIn={this.props.isLoggedIn}
-          />
+          <Timer totalTime={this.props.time} timesUp={this.gameOver} />
           <Board
             board={this.state.board}
             selected={this.state.selected}
