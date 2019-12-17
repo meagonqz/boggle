@@ -13,8 +13,7 @@ may someday add some other data related features.
 For now, in the UI, you only see your historical high score (if you're logged
 in). You only have access to your own past scores.
 
-To logout, you'll need to clear your cookies for this site. This site uses a HTTP-only
-secure cookie in production so your token is safe.
+To logout, you'll need to clear your cookies at the [hosted backend](https://peaceful-hamlet-86580.herokuapp.com/api). In production, this site uses a HTTP-only secure cookie with a serverside client secret, so your OAuth information is safe.
 
 # Local development
 This app was bootstrapped using [Create React App](https://github.com/facebook/create-react-app)
